@@ -1,0 +1,8 @@
+# git ignore file
+.DS_Store
+.vagrant
+nbproject/*
+*.mwb.bak
+logs/*
+vendor/*
+volume/*

@@ -1,0 +1,118 @@
+/** master less styles **/
+
+/** import variables less file **/
+@import "variables.less";
+
+/** import classes less file **/
+@import "classes.less";
+
+/** google font **/
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+body {
+	font-family: 'Montserrat', Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 15px;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+#main_container {
+
+}
+
+#header_container {
+	text-align: center;
+	font-size: 30px;
+	padding: 20px 0 10px 0;
+	margin-bottom: 10px;
+	border-bottom: 1px solid @color_middle;
+
+	span {
+		font-size: 12px;
+		color: @color_middle;
+	}
+}
+
+.stack {
+	float: left;
+
+	h4 {
+		text-align: center;
+		border-bottom: 1px solid @color_middle;
+	}
+}
+
+#stack_keep {
+	margin-left: 10px;
+	width: 20%;
+}
+
+#stack_remove {
+	margin-right: 10px;
+	width: 20%;
+}
+
+#preview_area {
+	margin-left: 30px;
+	margin-right: 30px;
+	width: 55%;
+}
+
+#footer_container {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	border-top: 1px solid @color_middle;
+	padding: 10px 0;
+	text-align: center;
+	color: @color_middle;
+}
+
+#menu_trigger {
+	display: block;
+	position: absolute;
+	right: 0;
+	top: 0;
+	background: @color_darkest;
+	color: @color_brightest;
+	padding: 10px;
+	text-decoration: none;
+
+	&:hover {
+		text-decoration: underline;
+	}
+}
+
+#dir_chooser {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: 0; //-400px;
+	width: 400px;
+	background: @color_darkest;
+	color: @color_brightest;
+	opacity: 0.95;
+
+	.content {
+		margin: 10px;
+
+		h4 {
+			border-bottom: 1px solid @color_brightest;
+		}
+
+		a.close {
+			display: block;
+			position: absolute;
+			right: 10px;
+			top: 5px;
+			color: @color_brightest;
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+}
