@@ -15,11 +15,12 @@ class ImageDeletor {
 	
 	public function getDirs() {
 		$scanner = new \TheSeer\DirectoryScanner\DirectoryScanner();
-		//$scanner->addInclude('*.php');
+		$scanner->addInclude('-r');
 		
 		$result = array();
 		
-		foreach($scanner('/vagrant/public') as $i) {
+		foreach($scanner('/vagrant/data') as $i) {
+			error_log($i);
 			$result[] = $i;
 		}
 		

@@ -5,4 +5,4 @@ nbproject/*
 *.mwb.bak
 logs/*
 vendor/*
-volume/*
+data/*

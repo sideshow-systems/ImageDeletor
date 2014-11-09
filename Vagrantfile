@@ -13,7 +13,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Share project folder
   config.vm.synced_folder ".", "/vagrant", id: "vagrant-htdocs", :owner => "www-data", :group => "www-data"
-  config.vm.synced_folder "/", "/vagrant/volume", id: "vagrant-volume", :owner => "www-data", :group => "www-data"
 
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
