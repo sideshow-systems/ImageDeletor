@@ -19,8 +19,30 @@ head.ready(function() {
 			});
 			return false;
 		});
-
-
+		
+		
+		
+		var ImageDeletor = {
+			ajaxUrl: 'ajax.php',
+			init: function() {},
+			
+			getDirList: function() {
+				$.ajax({
+					url: ImageDeletor.ajaxUrl,
+					type: 'POST',
+					data: {
+						action: 'getdirs'
+					},
+					success: function(data) {
+						var obj = jQuery.parseJSON(data);
+						console.log(obj);
+					}
+				});
+			}
+			
+		};
+		
+		ImageDeletor.getDirList();
 	});
 
 });

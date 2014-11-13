@@ -13,6 +13,8 @@ require_once '/vagrant/vendor/autoload.php';
  */
 class ImageDeletor {
 	
+	private $dataDir = '/vagrant/data';
+	
 	public function getDirs() {
 		$result = array();
 		
@@ -26,19 +28,23 @@ class ImageDeletor {
 		}
 		*/
 		
-		$path = '/vagrant/data';
-		$objects = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path));
-		foreach ($objects as $name => $fileInfo) {
-			echo $name . "<br />\n";
-			print_r($fileInfo);
-			/*
-			if ($fileInfo->isDot()) continue;
-			$name = $fileInfo->getFilename();
-			if (substr($fileInfo, 0, 1) != '.') {
-				echo $fileInfo->getFilename() . "<br>\n";
+		$ritit = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($this->dataDir), RecursiveIteratorIterator::CHILD_FIRST); 
+		foreach ($ritit as $splFileInfo) { 
+			if ($splFileInfo->isDir() && ($splFileInfo->getFilename() != '.' || $splFileInfo->getFilename() != '..')) {
+				$path = $splFileInfo->isDir() 
+					? array($splFileInfo->getFilename() => array()) 
+					: array($splFileInfo->getFilename()); 
+				
+				for ($depth = $ritit->getDepth() - 1; $depth >= 0; $depth--) { 
+					$path = array($ritit->getSubIterator($depth)->current()->getFilename() => $path);
+				}
+				$result = array_merge_recursive($result, $path);
 			}
-			*/
 		}
+		
+		//echo "<pre>";
+		//print_r($result);
+		//echo "</pre>";
 		
 		return $result;
 	}
