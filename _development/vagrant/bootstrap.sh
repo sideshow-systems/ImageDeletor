@@ -3,7 +3,7 @@
 # TODO: maybe check directories, start/stop services, etc.
 
 echo '                                                       ';
-echo '#### FOTODELETOR                                       ';
+echo '#### ImageDeletor                                      ';
 echo '                                                       ';
 echo '>> bootstrap is running...'
 echo ' '
