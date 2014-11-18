@@ -44,6 +44,7 @@
 			<div class="content">
 				<h4>Please choose a directory</h4>
 				<a href="#" class="close">close</a>
+				<div id="dirlist"></div>
 			</div>
 		</div>
 	</body>

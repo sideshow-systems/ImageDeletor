@@ -12,8 +12,9 @@ $result = array();
 
 switch ($params['action']) {
 	case 'getdirs':
-		$result = $imageDeletor->getDirs();
-
+		$dirs = $imageDeletor->getDirs();
+		$result = array('dirs' => $dirs);
+		
 		break;
 
 	default:

@@ -25,8 +25,13 @@ head.ready(function() {
 		var ImageDeletor = {
 			ajaxUrl: 'ajax.php',
 			init: function() {},
+			dirlistarea: null,
 			
+			init: function() {
+				this.dirlistarea = $('#dirlist');
+			},
 			getDirList: function() {
+				var ImgDel = this;
 				$.ajax({
 					url: ImageDeletor.ajaxUrl,
 					type: 'POST',
@@ -34,13 +39,22 @@ head.ready(function() {
 						action: 'getdirs'
 					},
 					success: function(data) {
-						var obj = jQuery.parseJSON(data);
-						console.log(obj);
+						var result = jQuery.parseJSON(data);
+						console.log(result);
+						
+						// TODO: check if result.dirs is not empty!
+						var $dirStructure = $(result.dirs);
+						
+						// TODO: remove empty nodes
+						
+						
+						ImgDel.dirlistarea.html($dirStructure);
 					}
 				});
 			}
 			
 		};
+		ImageDeletor.init();
 		
 		ImageDeletor.getDirList();
 	});
