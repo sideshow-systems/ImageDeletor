@@ -29,7 +29,7 @@ class ImageDeletor {
 		*/
 		
 		//echo "<pre>";
-		$result = $this->makeULLI($this->readDirR($this->dataDir));
+		$result = $this->makeULLI($this->readDirR($this->dataDir), $this->dataDir);
 		//echo "</pre>";
 		
 		return $result;
@@ -56,19 +56,24 @@ class ImageDeletor {
 		return $return;
 	}
 	
-	private function makeULLI($array) {
+	private function makeULLI($array, $level = '') {
 		$return = "<ul>";
 		if (is_array($array) && count($array) > 0) {
 			foreach ($array as $k => $v) {
 				if (is_array($v) && count($v) > 0) {
-					$return .= "<li>" . $k . $this->makeULLI($v) . "</li>";
+					$newLevel = $level . '/' . $k;
+					$return .= '<li><a href="' . $newLevel . '">' . $k . '</a>' . $this->makeULLI($v, $newLevel) . '</li>';
 				} else {
-					$return .= "<li>" . $v . "</li>";
+					$return .= '';// '<li>' . $v . '</li>';
 				}
 			}
 		} else {}
 		$return .= "</ul>";
 		return $return;
+	}
+	
+	public function getImagesForDir($dir) {
+		return array(1,2,3,4,5);
 	}
 }
 

@@ -6,6 +6,7 @@ head.ready(function() {
 
 		// menu trigger
 		$('#menu_trigger').click(function() {
+			ImageDeletor.getDirList();
 			$('#dir_chooser').animate({
 				right: 0
 			});
@@ -26,6 +27,7 @@ head.ready(function() {
 			ajaxUrl: 'ajax.php',
 			init: function() {},
 			dirlistarea: null,
+			dataDir: '/vagrant/data',
 			
 			init: function() {
 				this.dirlistarea = $('#dirlist');
@@ -33,7 +35,7 @@ head.ready(function() {
 			getDirList: function() {
 				var ImgDel = this;
 				$.ajax({
-					url: ImageDeletor.ajaxUrl,
+					url: ImgDel.ajaxUrl,
 					type: 'POST',
 					data: {
 						action: 'getdirs'
@@ -45,10 +47,31 @@ head.ready(function() {
 						// TODO: check if result.dirs is not empty!
 						var $dirStructure = $(result.dirs);
 						
-						// TODO: remove empty nodes
-						
+						// hijack links
+						var $links = $('a', $dirStructure);
+						$links.click(function() {
+							ImgDel.getImagesForDir($(this).attr('href'));
+							return false;
+						});
 						
 						ImgDel.dirlistarea.html($dirStructure);
+					}
+				});
+			},
+			getImagesForDir: function(dir) {
+				var ImgDel = this;
+				$.ajax({
+					url: ImgDel.ajaxUrl,
+					type: 'POST',
+					data: {
+						action: 'getimagesfordir',
+						dir: dir
+					},
+					success: function(data) {
+						var result = jQuery.parseJSON(data);
+						console.log(result);
+						
+						
 					}
 				});
 			}

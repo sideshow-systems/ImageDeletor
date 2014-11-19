@@ -16,7 +16,11 @@ switch ($params['action']) {
 		$result = array('dirs' => $dirs);
 		
 		break;
-
+	case 'getimagesfordir':
+		$imgs = $imageDeletor->getImagesForDir($params['dir']);
+		$result = array('imgs' => $imgs);
+		break;
+		
 	default:
 		break;
 }
