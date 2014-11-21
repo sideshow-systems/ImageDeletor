@@ -25,7 +25,7 @@
 			</div>
 			<div id="content_container">
 				<div id="stack_remove" class="stack">
-					<h4>Remove</h4>
+					<h4>Remove <a id="removeimgs">[remove images]</a></h4>
 					<div class="content"></div>
 				</div>
 				<div id="preview_area" class="stack">

@@ -52,6 +52,36 @@ head.ready(function() {
 					ImageDeletor.removeImage();
 					return false;
 				});
+
+				$('#removeimgs').click(function() {
+					ImageDeletor.removeImages();
+					return false;
+				});
+			},
+			removeImages: function() {
+				var ImgDel = this;
+
+				// get imgs we want to delete
+				var imgsToDelete = [];
+				var imgs = this.removeArea.find('a.imgwrapper');
+				imgs.each(function(index, el) {
+					imgsToDelete.push($(el).data('delpath'));
+				});
+
+				$.ajax({
+					url: ImgDel.ajaxUrl,
+					type: 'POST',
+					data: {
+						action: 'removeimgs',
+						imgs: JSON.stringify(imgsToDelete, null, 2)
+					},
+					success: function(data) {
+						var result = jQuery.parseJSON(data);
+						if (result.removed > 0) {
+							ImgDel.removeArea.find('a.imgwrapper').remove();
+						}
+					}
+				});
 			},
 			getDirList: function() {
 				var ImgDel = this;
@@ -63,7 +93,6 @@ head.ready(function() {
 					},
 					success: function(data) {
 						var result = jQuery.parseJSON(data);
-						console.log(result);
 
 						// TODO: check if result.dirs is not empty!
 						var $dirStructure = $(result.dirs);
@@ -104,7 +133,7 @@ head.ready(function() {
 				if (this.previewStack.length !== 0) {
 					var ImgDel = this;
 					jQuery.each(this.previewStack.imgs, function(index, path) {
-						ImgDel.previewArea.append('<a class="imgwrapper" href="#" rel="' + index + '"><img src="/misc/pics/blank.gif" data-imgpath="img.php?file=' + path + '" /></a>');
+						ImgDel.previewArea.append('<a class="imgwrapper" href="#" rel="' + index + '" data-delpath="' + path + '"><img src="/misc/pics/blank.gif" data-imgpath="img.php?file=' + path + '" /></a>');
 					});
 					ImgDel.loadCurrentImg();
 				}

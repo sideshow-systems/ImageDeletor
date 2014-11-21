@@ -82,6 +82,22 @@ class ImageDeletor {
 		}
 		return $result;
 	}
+	
+	public function removeImages($images) {
+		$result = 0;
+		
+		if (!empty($images)) {
+			$imagesToDelete = json_decode($images);
+			if (!empty($imagesToDelete)) {
+				foreach ($imagesToDelete as $img) {
+					unlink($img);
+					$result++;
+				}
+			}
+		}
+		
+		return $result;
+	}
 }
 
 ?>

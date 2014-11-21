@@ -20,7 +20,10 @@ switch ($params['action']) {
 		$imgs = $imageDeletor->getImagesForDir($params['dir']);
 		$result = array('imgs' => $imgs);
 		break;
-		
+	case 'removeimgs':
+		$removed = $imageDeletor->removeImages($params['imgs']);
+		$result = array('removed' => $removed);
+		break;
 	default:
 		break;
 }
