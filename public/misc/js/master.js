@@ -152,12 +152,12 @@ head.ready(function() {
 			},
 			keepImage: function() {
 				var $el = this.getCurrentImageFromPreviewStack();
-				this.keepArea.find('.content').append($el.detach());
+				this.keepArea.find('.content').prepend($el.detach());
 				this.loadCurrentImg();
 			},
 			removeImage: function() {
 				var $el = this.getCurrentImageFromPreviewStack();
-				this.removeArea.find('.content').append($el.detach());
+				this.removeArea.find('.content').prepend($el.detach());
 				this.loadCurrentImg();
 			},
 			resetAreas: function() {
