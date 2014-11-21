@@ -104,8 +104,9 @@ head.ready(function() {
 				if (this.previewStack.length !== 0) {
 					var ImgDel = this;
 					jQuery.each(this.previewStack.imgs, function(index, path) {
-						ImgDel.previewArea.append('<a class="imgwrapper" href="#" rel="' + index + '"><img src="img.php?file=' + path + '" width="400" /></a>');
+						ImgDel.previewArea.append('<a class="imgwrapper" href="#" rel="' + index + '"><img src="/misc/pics/blank.gif" data-imgpath="img.php?file=' + path + '" /></a>');
 					});
+					ImgDel.loadCurrentImg();
 				}
 			},
 			getCurrentImageFromPreviewStack: function() {
@@ -114,15 +115,23 @@ head.ready(function() {
 			keepImage: function() {
 				var $el = this.getCurrentImageFromPreviewStack();
 				this.keepArea.find('.content').append($el.detach());
+				this.loadCurrentImg();
 			},
 			removeImage: function() {
 				var $el = this.getCurrentImageFromPreviewStack();
 				this.removeArea.find('.content').append($el.detach());
+				this.loadCurrentImg();
 			},
 			resetAreas: function() {
 				this.previewArea.find('a.imgwrapper').remove();
 				this.keepArea.find('a.imgwrapper').remove();
 				this.removeArea.find('a.imgwrapper').remove();
+			},
+			loadCurrentImg: function() {
+				var $el = this.getCurrentImageFromPreviewStack();
+				var $imgEl = $el.find('img');
+				var imgPath = $imgEl.data('imgpath');
+				$imgEl.attr('src', imgPath);
 			}
 
 		};
