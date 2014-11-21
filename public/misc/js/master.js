@@ -27,9 +27,10 @@ head.ready(function() {
 
 		// key trigger
 		$(document).keyup(function(event) {
-			if (event.keyCode === 37) { // left
+//			console.log(event);
+			if (event.keyCode === 82) { // r
 				ImageDeletor.removeImage();
-			} else if (event.keyCode === 39) { // right
+			} else if (event.keyCode === 75) { // k
 				ImageDeletor.keepImage();
 			}
 		});

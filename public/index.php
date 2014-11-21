@@ -30,8 +30,8 @@
 				</div>
 				<div id="preview_area" class="stack">
 					<div id="preview_tools">
-						<a href="#" id="btn_remove" class="btn">remove image</a>
-						<a href="#" id="btn_keep" class="btn">keep image</a>
+						<a href="#" id="btn_remove" class="btn">remove image [r]</a>
+						<a href="#" id="btn_keep" class="btn">keep image [k]</a>
 					</div>
 				</div>
 				<div id="stack_keep" class="stack">
