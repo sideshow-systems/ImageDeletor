@@ -25,8 +25,16 @@ head.ready(function() {
 			return false;
 		});
 
+		// key trigger
+		$(document).keyup(function(event) {
+			if (event.keyCode === 37) { // left
+				ImageDeletor.removeImage();
+			} else if (event.keyCode === 39) { // right
+				ImageDeletor.keepImage();
+			}
+		});
 
-
+		// ImageDeletor
 		var ImageDeletor = {
 			ajaxUrl: 'ajax.php',
 			dirlistarea: null,
