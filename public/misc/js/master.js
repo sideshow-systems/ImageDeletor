@@ -1,5 +1,9 @@
 /** master js file **/
 
+Array.prototype.last = function() {
+	return this[this.length-1];
+};
+
 head.ready(function() {
 
 	$(document).ready(function() {
@@ -20,17 +24,34 @@ head.ready(function() {
 			});
 			return false;
 		});
-		
-		
-		
+
+
+
 		var ImageDeletor = {
 			ajaxUrl: 'ajax.php',
-			init: function() {},
 			dirlistarea: null,
 			dataDir: '/vagrant/data',
-			
+			previewStack: null,
+			removeStack: null,
+			keepStack: null,
+			previewArea: null,
+			removeArea: null,
+			keepArea: null,
+
 			init: function() {
 				this.dirlistarea = $('#dirlist');
+				this.previewArea = $('#preview_area');
+				this.removeArea = $('#stack_remove');
+				this.keepArea = $('#stack_keep');
+
+				$('#btn_keep').click(function() {
+					ImageDeletor.keepImage();
+					return false;
+				});
+				$('#btn_remove').click(function() {
+					ImageDeletor.removeImage();
+					return false;
+				});
 			},
 			getDirList: function() {
 				var ImgDel = this;
@@ -43,17 +64,17 @@ head.ready(function() {
 					success: function(data) {
 						var result = jQuery.parseJSON(data);
 						console.log(result);
-						
+
 						// TODO: check if result.dirs is not empty!
 						var $dirStructure = $(result.dirs);
-						
+
 						// hijack links
 						var $links = $('a', $dirStructure);
 						$links.click(function() {
 							ImgDel.getImagesForDir($(this).attr('href'));
 							return false;
 						});
-						
+
 						ImgDel.dirlistarea.html($dirStructure);
 					}
 				});
@@ -69,16 +90,44 @@ head.ready(function() {
 					},
 					success: function(data) {
 						var result = jQuery.parseJSON(data);
-						console.log(result);
-						
-						
+						//console.log(result);
+
+						// TODO: handle empty result
+
+						ImgDel.resetAreas();
+						ImgDel.previewStack = result;
+						ImgDel.generatePreviewData();
 					}
 				});
+			},
+			generatePreviewData: function() {
+				if (this.previewStack.length !== 0) {
+					var ImgDel = this;
+					jQuery.each(this.previewStack.imgs, function(index, path) {
+						ImgDel.previewArea.append('<a class="imgwrapper" href="#" rel="' + index + '"><img src="img.php?file=' + path + '" width="400" /></a>');
+					});
+				}
+			},
+			getCurrentImageFromPreviewStack: function() {
+				return this.previewArea.find('a.imgwrapper').last();
+			},
+			keepImage: function() {
+				var $el = this.getCurrentImageFromPreviewStack();
+				this.keepArea.append($el.detach());
+			},
+			removeImage: function() {
+				var $el = this.getCurrentImageFromPreviewStack();
+				this.removeArea.append($el.detach());
+			},
+			resetAreas: function() {
+				this.previewArea.find('a.imgwrapper').remove();
+				this.keepArea.find('a.imgwrapper').remove();
+				this.removeArea.find('a.imgwrapper').remove();
 			}
-			
+
 		};
 		ImageDeletor.init();
-		
+
 		ImageDeletor.getDirList();
 	});
 

@@ -7,7 +7,7 @@
 require_once '/vagrant/vendor/autoload.php';
 
 /**
- * Description of ImageDeletor
+ * ImageDeletor
  *
  * @author Florian Binder <fb@sideshow-systems.de>
  */
@@ -73,7 +73,14 @@ class ImageDeletor {
 	}
 	
 	public function getImagesForDir($dir) {
-		return array(1,2,3,4,5);
+		$result = array();
+		$scanned_directory = array_diff(scandir($dir), array('..', '.', '.DS_Store'));
+		if (!empty($scanned_directory)) {
+			foreach ($scanned_directory as $file) {
+				$result[] = $dir . '/' . $file;
+			}
+		}
+		return $result;
 	}
 }
 

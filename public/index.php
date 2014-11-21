@@ -10,8 +10,8 @@
 		<script src="misc/js/head.load.min.js"></script>
 		<script>
 			head.load(
-				{jquery: 'misc/js/jquery-2.1.1.min.js'},
-				{jquery: 'misc/js/master.js'}
+					{jquery: 'misc/js/jquery-2.1.1.min.js'},
+			{jquery: 'misc/js/master.js'}
 			);
 		</script>
 	</head>
@@ -24,14 +24,24 @@
 				ImageDeletor <span>V 0.1</span>
 			</div>
 			<div id="content_container">
-				<div id="stack_keep" class="stack">
-					<h4>Keep</h4>
-				</div>
-				<div id="preview_area" class="stack">
-					preview area
-				</div>
 				<div id="stack_remove" class="stack">
 					<h4>Remove</h4>
+				</div>
+				<div id="preview_area" class="stack">
+					<!--
+					<a href="#"><img width="400" src="img.php?file=/vagrant/data/dir1/02831_autumn_1920x1080.jpg"></a>
+					<a href="#"><img width="400" src="img.php?file=/vagrant/data/dir1/02832_newyorkcitybw_1920x1080.jpg"></a>
+					<a href="#"><img width="400" src="img.php?file=/vagrant/data/dir1/02833_oiasunset_1920x1080.jpg"></a>
+					<a href="#"><img width="400" src="img.php?file=/vagrant/data/dir1/02834_canopy_1920x1080.jpg"></a>
+					<a href="#"><img width="400" src="img.php?file=/vagrant/data/dir1/02835_beforethestorm_1920x1080.jpg"></a>
+					-->
+					<div id="preview_tools">
+						<a href="#" id="btn_remove" class="btn">remove image</a>
+						<a href="#" id="btn_keep" class="btn">keep image</a>
+					</div>
+				</div>
+				<div id="stack_keep" class="stack">
+					<h4>Keep</h4>
 				</div>
 				<div class="clear">&nbsp;</div>
 			</div>
