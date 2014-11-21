@@ -113,11 +113,11 @@ head.ready(function() {
 			},
 			keepImage: function() {
 				var $el = this.getCurrentImageFromPreviewStack();
-				this.keepArea.append($el.detach());
+				this.keepArea.find('.content').append($el.detach());
 			},
 			removeImage: function() {
 				var $el = this.getCurrentImageFromPreviewStack();
-				this.removeArea.append($el.detach());
+				this.removeArea.find('.content').append($el.detach());
 			},
 			resetAreas: function() {
 				this.previewArea.find('a.imgwrapper').remove();
