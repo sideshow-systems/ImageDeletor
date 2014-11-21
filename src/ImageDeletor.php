@@ -12,33 +12,34 @@ require_once '/vagrant/vendor/autoload.php';
  * @author Florian Binder <fb@sideshow-systems.de>
  */
 class ImageDeletor {
-	
+
 	private $dataDir = '/vagrant/data';
-	
+	private $allowedSuffixes = array('jpg', 'jpeg', 'png', 'gif');
+
 	public function getDirs() {
 		$result = array();
-		
+
 		/*
-		$scanner = new \TheSeer\DirectoryScanner\DirectoryScanner();
-		$scanner->addInclude('-r');
-		
-		foreach($scanner('/vagrant/data') as $i) {
-			error_log($i);
-			$result[] = $i;
-		}
-		*/
-		
+		  $scanner = new \TheSeer\DirectoryScanner\DirectoryScanner();
+		  $scanner->addInclude('-r');
+
+		  foreach($scanner('/vagrant/data') as $i) {
+		  error_log($i);
+		  $result[] = $i;
+		  }
+		 */
+
 		//echo "<pre>";
 		$result = $this->makeULLI($this->readDirR($this->dataDir), $this->dataDir);
 		//echo "</pre>";
-		
+
 		return $result;
 	}
-	
+
 	private function readDirR($dir = "./") {
 		$listing = opendir($dir);
 		$return = array();
-		while(($entry = readdir($listing)) !== false) {
+		while (($entry = readdir($listing)) !== false) {
 			if ($entry != "." && $entry != ".." && substr($entry, 0, 1) != '.') {
 				$dir = preg_replace("/^(.*)(\/)+$/", "$1", $dir);
 				$item = $dir . "/" . $entry;
@@ -55,7 +56,7 @@ class ImageDeletor {
 		}
 		return $return;
 	}
-	
+
 	private function makeULLI($array, $level = '') {
 		$return = "<ul>";
 		if (is_array($array) && count($array) > 0) {
@@ -64,28 +65,35 @@ class ImageDeletor {
 					$newLevel = $level . '/' . $k;
 					$return .= '<li><a href="' . $newLevel . '">' . $k . '</a>' . $this->makeULLI($v, $newLevel) . '</li>';
 				} else {
-					$return .= '';// '<li>' . $v . '</li>';
+					$return .= ''; // '<li>' . $v . '</li>';
 				}
 			}
-		} else {}
+		} else {
+			
+		}
 		$return .= "</ul>";
 		return $return;
 	}
-	
+
 	public function getImagesForDir($dir) {
 		$result = array();
 		$scanned_directory = array_diff(scandir($dir), array('..', '.', '.DS_Store'));
 		if (!empty($scanned_directory)) {
 			foreach ($scanned_directory as $file) {
-				$result[] = $dir . '/' . $file;
+				if (file_exists($dir . '/' . $file)) {
+					$ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
+					if (in_array($ext, $this->allowedSuffixes)) {
+						$result[] = $dir . '/' . $file;
+					}
+				}
 			}
 		}
 		return $result;
 	}
-	
+
 	public function removeImages($images) {
 		$result = 0;
-		
+
 		if (!empty($images)) {
 			$imagesToDelete = json_decode($images);
 			if (!empty($imagesToDelete)) {
@@ -95,9 +103,10 @@ class ImageDeletor {
 				}
 			}
 		}
-		
+
 		return $result;
 	}
+
 }
 
 ?>
